@@ -1,36 +1,18 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/register">Register</router-link>
-    </nav>
-    <router-view />
+  <NavigationBar />
+  <div class="app-container">
+    <router-view></router-view>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'App'
-}
+<script setup lang="ts">
+import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <style>
-#app {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
-
-nav {
-  margin-bottom: 20px;
-}
-
-nav a {
-  margin-right: 10px;
-  text-decoration: none;
-  color: #2c3e50;
-}
-
-nav a.router-link-active {
-  color: #42b983;
+.app-container {
+  padding-top: 64px;
+  min-height: 100vh;
+  background-color: var(--background-color);
 }
 </style>

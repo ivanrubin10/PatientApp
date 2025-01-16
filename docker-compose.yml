@@ -87,6 +87,7 @@ services:
       - MAIL_PASSWORD=${GMAIL_APP_PASSWORD}
       - MAILTRAP_USERNAME=${MAILTRAP_USERNAME}
       - MAILTRAP_PASSWORD=${MAILTRAP_PASSWORD}
+      - UPLOAD_FOLDER=/app/uploads
     volumes:
       - ./backend:/app
       - uploads_data:/app/uploads

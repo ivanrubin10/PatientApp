@@ -26,6 +26,10 @@ class Config:
     MAIL_ASCII_ATTACHMENTS = False
     MAIL_DEBUG = True
 
+    # Upload settings
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+
     def __init__(self):
         # Add logging for debugging
         print(f"MAIL_USERNAME: {self.MAIL_USERNAME}")

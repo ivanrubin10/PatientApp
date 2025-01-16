@@ -1,0 +1,55 @@
+:root {
+  /* Color Palette - Updated for better readability */
+  --primary-color: #2563eb;    /* Bright blue */
+  --secondary-color: #3b82f6;  /* Light blue */
+  --accent-color: #ef4444;     /* Red */
+  --background-color: #f1f5f9; /* Light gray background */
+  --surface-color: #ffffff;    /* White for cards */
+  --text-color: #1e293b;      /* Dark blue-gray */
+  --text-light: #64748b;      /* Medium blue-gray */
+  --text-lighter: #94a3b8;    /* Light blue-gray */
+  --success-color: #22c55e;   /* Green */
+  --warning-color: #f59e0b;   /* Orange */
+  --error-color: #ef4444;     /* Red */
+  --border-color: #e2e8f0;    /* Light gray for borders */
+
+  /* Add navbar colors */
+  --navbar-bg: #ffffff;
+  --navbar-text: #1e293b;
+  --navbar-hover: #f8fafc;
+  
+  /* Typography */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Poppins', var(--font-primary);
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.07);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  --gradient-accent: linear-gradient(135deg, var(--secondary-color), #64b5f6);
+
+  /* Card dimensions */
+  --card-image-size: 160px;
+  --card-image-size-mobile: 200px;
+} 

@@ -1,15 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/HomeView.vue';
-import Register from '../views/RegisterView.vue';
+import HomeView from '../views/HomeView.vue';
 
-const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/register', name: 'Register', component: Register },
-];
-
+// lazy load register page
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
+    }
+  ]
+})
 
-export default router;
+export default router

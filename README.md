@@ -1,110 +1,107 @@
-# Patient Management System
+# Patient App
 
-A full-stack web application for managing patient records and appointments, built with Vue.js, Flask, PostgreSQL, Redis and Celery.
-
-## Features
-
-- Patient record management
-- Appointment scheduling and management 
-- Email notifications
-- Background task processing
-- Secure authentication
-- RESTful API
+A patient management system built with Vue 3 + Flask. Register patients, store their info and documents, with email notifications.
 
 ## Tech Stack
 
 ### Frontend
-- Vue.js
-- Vite
-- Axios for API calls
+- Vue 3 with Composition API
+- TypeScript
+- Vite for building
+- Font Awesome icons
+- Vue Router for navigation
 
 ### Backend
-- Flask
+- Flask (Python web framework)
 - SQLAlchemy ORM
 - PostgreSQL database
-- Redis for caching and message broker
+- Redis for message queue
 - Celery for background tasks
-- Flask-Mail for email notifications
+- Flask-Mail for emails
 
 ## Setup
 
-1. Clone the repository
+### Requirements
+- Docker & Docker Compose
+- Gmail account for sending emails
 
+### 1. Gmail Setup
+1. Go to your Google Account settings
+2. Navigate to Security > 2-Step Verification
+3. At the bottom, click on "App passwords"
+5. Click "Generate"
+6. Copy the 16-character password
+
+### 2. Environment Setup
+
+1. Create `.env` in root folder:
 ```bash
-git clone https://github.com/yourusername/patient-management-system.git
-cd patient-management-system
-
-```
-2. Set up environment variables
-
-Create a `.env` file in the root directory and add:
-
-```
-DATABASE_URL=postgresql://postgres:postgres@db:5432/patient_db
-SECRET_KEY=your-secret-key
-FLASK_ENV=development
 GMAIL_USERNAME=your.email@gmail.com
-GMAIL_APP_PASSWORD=your_app_password
+GMAIL_APP_PASSWORD=your-16-char-password  # from step 1
+DATABASE_URL=postgresql://postgres:postgres@db:5432/patient_db
+SECRET_KEY=your-secret-key-here  # any random string
+FLASK_ENV=development
 ```
 
-Create `frontend/.env`:
-
-```
+2. Create `frontend/.env`:
+```bash
 VITE_API_URL=http://localhost:5000
 ```
 
-3. **Build and run with Docker Compose**
+### 3. Running with Docker
 
+1. First time or clean rebuild:
 ```bash
-bash
+# Stop and remove old containers + volumes
+docker-compose down -v
+
+# Remove all images (force)
+docker rmi $(docker images -q) --force
+
+# Build and start
 docker-compose up --build
 ```
 
-## Usage
+2. Subsequent runs:
+```bash
+docker-compose up
+```
 
-1. **Access the application**:
-   - Frontend: http://localhost:4173
-   - Backend API: http://localhost:5000
+The app will be available at:
+- Frontend: http://localhost:4173
+- Backend API: http://localhost:5000
 
-2. **Register a patient**:
-   - Navigate to http://localhost:4173/register
-   - Fill in the patient details
-   - Upload a document (supported format: jpg)
-   - Submit the form
+### Development Setup (Optional)
 
-3. **View registered patients**:
-   - Navigate to http://localhost:4173
-   - View the list of all registered patients
+If you want to run the frontend separately for development:
 
-## API Endpoints
+1. Start backend with docker:
+```bash
+docker-compose up
+```
 
-- `POST /register`: Register a new patient
-  - Accepts multipart/form-data with fields:
-    - name: string
-    - email: string
-    - phone: string
-    - document_photo: file (jpg)
+2. Run frontend locally:
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-- `GET /patients`: Get list of all patients
-
-## Project Structure
+## Basic Project Structure
 
 ```
-patient-management-system/
-├── backend/
-│ ├── app/
-│ │ ├── routes/
-│ │ ├── services/
-│ │ ├── templates/
-│ │ └── tasks.py
-│ ├── Dockerfile
-│ └── requirements.txt
-├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── views/
-│ │ └── App.vue
-│ ├── Dockerfile
-│ └── package.json
+patient-manager/
+├── backend/           # Flask backend
+│   ├── app/
+│   │   ├── models/   # Database models
+│   │   ├── routes/   # API endpoints
+│   │   └── tasks.py  # Celery tasks
+│   └── Dockerfile
+├── frontend/         # Vue frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── views/
+│   │   └── assets/
+│   └── Dockerfile
 └── docker-compose.yml
 ```
