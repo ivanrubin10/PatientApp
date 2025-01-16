@@ -105,3 +105,95 @@ patient-manager/
 │   └── Dockerfile
 └── docker-compose.yml
 ```
+
+## Deployment Guide
+
+### 1. Prepare Your Repository
+1. Push your code to GitHub:
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin your-github-repo-url
+git push -u origin main
+```
+
+### 2. Deploy Frontend to Netlify
+1. Go to [Netlify](https://www.netlify.com/) and sign up/login
+2. Click "Add new site" → "Import an existing project"
+3. Choose "Deploy with GitHub"
+4. Select your repository
+5. Configure build settings:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+   - Base directory: `frontend`
+6. Click "Deploy site"
+7. While deploying, set up environment variables:
+   - Go to Site settings → Environment variables
+   - Add `VITE_API_URL` with your Railway backend URL (after setting up Railway)
+
+### 3. Deploy Backend to Railway
+1. Go to [Railway](https://railway.app/) and sign up/login
+2. Click "New Project" → "Deploy from GitHub repo"
+3. Select your repository
+4. Configure the project:
+   - Choose the "backend" directory as source
+   - Railway will auto-detect Python
+5. Add required services:
+   - Click "New" → "Database" → "Add PostgreSQL"
+   - Click "New" → "Database" → "Add Redis"
+6. Set up environment variables:
+   ```
+   GMAIL_USERNAME=your.email@gmail.com
+   GMAIL_APP_PASSWORD=your-16-char-password
+   SECRET_KEY=your-secret-key
+   FLASK_ENV=production
+   CORS_ORIGIN=your-netlify-url
+   ```
+   Note: Railway automatically provides DATABASE_URL
+
+### 4. Connect Services
+1. Update frontend environment:
+   ```bash
+   # frontend/.env.production
+   VITE_API_URL=https://your-railway-url.railway.app
+   ```
+
+2. Trigger a new Netlify deploy:
+   - Go to Netlify dashboard
+   - Select your site
+   - Click "Trigger deploy"
+
+### Troubleshooting
+1. If builds fail:
+   - Check build logs in respective platforms
+   - Verify environment variables are set
+   - Ensure all dependencies are listed in requirements.txt/package.json
+
+2. If CORS issues occur:
+   - Verify CORS_ORIGIN in Railway matches your Netlify URL
+   - Check for trailing slashes in URLs
+
+3. If database issues occur:
+   - Check Railway's PostgreSQL connection details
+   - Verify DATABASE_URL is being used correctly
+
+### Monitoring
+- Netlify: Analytics tab in dashboard
+- Railway: Metrics tab in project view
+- Both platforms provide deployment logs and error tracking
+
+### Automatic Deployments
+Both platforms will automatically deploy when you push to your GitHub repository's main branch.
+
+### Custom Domains (Optional)
+1. Netlify:
+   - Go to "Domain settings"
+   - Click "Add custom domain"
+   - Follow DNS configuration instructions
+
+2. Railway:
+   - Go to project settings
+   - Click "Domains"
+   - Add your domain and follow DNS instructions

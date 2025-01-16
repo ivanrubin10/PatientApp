@@ -3,8 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from celery import Celery
 from app.config import Config
-from flask_cors import CORS
-from os import environ
 
 # Extensions
 db = SQLAlchemy()
@@ -21,8 +19,6 @@ def create_app():
 
     # Configure Celery
     celery.conf.update(app.config)
-
-    CORS(app, origins=[environ.get('CORS_ORIGIN', 'http://localhost:4173')])
 
     with app.app_context():
         # Import routes after app creation to avoid circular imports
