@@ -1,0 +1,10 @@
+flask
+flask-sqlalchemy
+flask-mail
+psycopg2-binary==2.9.9
+marshmallow
+cryptography
+celery
+redis
+Werkzeug
+flask-cors
